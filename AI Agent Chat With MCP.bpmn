@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:modeler="http://camunda.org/schema/modeler/1.0" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Definitions_1" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Web Modeler" exporterVersion="79a0d38" modeler:executionPlatform="Camunda Cloud" modeler:executionPlatformVersion="8.8.0">
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:modeler="http://camunda.org/schema/modeler/1.0" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Definitions_1" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Web Modeler" exporterVersion="72f97ba" modeler:executionPlatform="Camunda Cloud" modeler:executionPlatformVersion="8.8.0">
   <bpmn:process id="process_MCPAIChat" name="AI Agent Chat With MCP" isExecutable="true">
+    <bpmn:extensionElements>
+      <zeebe:versionTag value="0.0.1" />
+    </bpmn:extensionElements>
     <bpmn:startEvent id="start_initiateRequest" name="Initiate Request">
       <bpmn:extensionElements>
         <zeebe:formDefinition formId="Form_uj6m8vl" />
@@ -48,6 +51,7 @@
       <bpmn:incoming>Flow_0owg549</bpmn:incoming>
       <bpmn:outgoing>Flow_1miqwkj</bpmn:outgoing>
       <bpmn:serviceTask id="mcp_Deepwiki" name="Deepwiki" zeebe:modelerTemplate="io.camunda.connectors.agenticai.mcp.remoteclient.v0" zeebe:modelerTemplateVersion="0" zeebe:modelerTemplateIcon="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIiBmaWxsPSJub25lIiB2aWV3Qm94PSIwIDAgMjAwIDIwMCI+CiAgICA8cGF0aCBkPSJNMjUgOTcuODUyOEw5Mi44ODIzIDI5Ljk3MDZDMTAyLjI1NSAyMC41OTggMTE3LjQ1MSAyMC41OTggMTI2LjgyMyAyOS45NzA2VjI5Ljk3MDZDMTM2LjE5NiAzOS4zNDMxIDEzNi4xOTYgNTQuNTM5MSAxMjYuODIzIDYzLjkxMTdMNzUuNTU4MSAxMTUuMTc3IiBzdHJva2U9ImJsYWNrIiBzdHJva2Utd2lkdGg9IjEyIiBzdHJva2UtbGluZWNhcD0icm91bmQiLz4KICAgIDxwYXRoIGQ9Ik03Ni4yNjUzIDExNC40N0wxMjYuODIzIDYzLjkxMTdDMTM2LjE5NiA1NC41MzkxIDE1MS4zOTIgNTQuNTM5MSAxNjAuNzY1IDYzLjkxMTdMMTYxLjExOCA2NC4yNjUyQzE3MC40OTEgNzMuNjM3OCAxNzAuNDkxIDg4LjgzMzggMTYxLjExOCA5OC4yMDYzTDk5LjcyNDggMTU5LjZDOTYuNjAwNiAxNjIuNzI0IDk2LjYwMDYgMTY3Ljc4OSA5OS43MjQ4IDE3MC45MTNMMTEyLjMzMSAxODMuNTIiIHN0cm9rZT0iYmxhY2siIHN0cm9rZS13aWR0aD0iMTIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPgogICAgPHBhdGggZD0iTTEwOS44NTMgNDYuOTQxMUw1OS42NDgyIDk3LjE0NTdDNTAuMjc1NyAxMDYuNTE4IDUwLjI3NTcgMTIxLjcxNCA1OS42NDgyIDEzMS4wODdWMTMxLjA4N0M2OS4wMjA4IDE0MC40NTkgODQuMjE2OCAxNDAuNDU5IDkzLjU4OTQgMTMxLjA4N0wxNDMuNzk0IDgwLjg4MjIiIHN0cm9rZT0iYmxhY2siIHN0cm9rZS13aWR0aD0iMTIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPgo8L3N2Zz4K">
+        <bpmn:documentation>Use this tool first to try to answer the question</bpmn:documentation>
         <bpmn:extensionElements>
           <zeebe:taskDefinition type="io.camunda.agenticai:mcpremoteclient:0" retries="3" />
           <zeebe:ioMapping>
@@ -66,11 +70,13 @@
           </zeebe:properties>
         </bpmn:extensionElements>
       </bpmn:serviceTask>
-      <bpmn:userTask id="Activity_1ebgumx" name="Get More Information">
+      <bpmn:userTask id="ask_for_more_info" name="Get More Information">
+        <bpmn:documentation>Use this tool if you are not able to use Deepwiki to answer the question</bpmn:documentation>
         <bpmn:extensionElements>
           <zeebe:userTask />
           <zeebe:formDefinition formId="get-more-information-1y19edg" />
           <zeebe:ioMapping>
+            <zeebe:input source="=replace(&#10;  agent.responseText,&#10;  &#34;&#60;thinking&#62;.*&#60;/thinking&#62;&#34;,&#10;  &#34;&#34;&#10;)" target="aiquestion" />
             <zeebe:output source="=humanAnswer" target="toolCallResult" />
           </zeebe:ioMapping>
         </bpmn:extensionElements>
@@ -90,7 +96,7 @@
         <zeebe:userTask />
         <zeebe:formDefinition formId="display-results-0zcbfd6" />
         <zeebe:ioMapping>
-          <zeebe:input source="=agent.responseText" target="myResults" />
+          <zeebe:input source="=replace(&#10;  agent.responseText,&#10;  &#34;&#60;thinking&#62;.*&#60;/thinking&#62;&#34;,&#10;  &#34;&#34;&#10;)" target="myResults" />
         </zeebe:ioMapping>
         <zeebe:assignmentDefinition assignee="" />
       </bpmn:extensionElements>
@@ -114,17 +120,17 @@
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_1lr4mkl_di" bpmnElement="agentTools" isExpanded="true">
-        <dc:Bounds x="280" y="-25" width="480" height="330" />
+        <dc:Bounds x="280" y="60" width="480" height="330" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_1r094kc_di" bpmnElement="mcp_Deepwiki">
-        <dc:Bounds x="360" y="55" width="100" height="80" />
+        <dc:Bounds x="360" y="140" width="100" height="80" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_03wycf9_di" bpmnElement="Activity_1ebgumx">
-        <dc:Bounds x="570" y="55" width="100" height="80" />
+      <bpmndi:BPMNShape id="Activity_03wycf9_di" bpmnElement="ask_for_more_info">
+        <dc:Bounds x="570" y="140" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_1rp9f8g_di" bpmnElement="task_superfluxProduct">
-        <dc:Bounds x="460" y="165" width="100" height="80" />
+        <dc:Bounds x="460" y="250" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_0ie18gq_di" bpmnElement="task_displayResults">
         <dc:Bounds x="860" y="100" width="100" height="80" />
